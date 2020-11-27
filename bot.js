@@ -7,7 +7,7 @@ const options = ({
 	host: 'play.pixelempiresmc.net',
 	port: 25565,
 	username: process.argv[2],
-	password: process.argv[3]
+	password: String(process.argv[3])
 })
 
 app.get("/", (req, res) => res.send(""))
