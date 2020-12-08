@@ -2,12 +2,13 @@ const mineflayer = require('mineflayer')
 const express = require("express")
 const app = express()
 const chalk = require("chalk");
+const mineflayerViewer = require('prismarine-viewer').mineflayer
 
 const options = ({
 	host: 'play.pixelempiresmc.net',
 	port: 25565,
-	username: process.argv[2],
-	password: String(process.argv[3])
+	username: process.env.USERNAME,
+	password: String(process.env.PASSWORD)
 })
 
 app.get("/", (req, res) => res.send(""))
@@ -16,12 +17,13 @@ console.log(chalk.green('Bot is starting...'));
 
 const bot = mineflayer.createBot(options)
 
-var users = ['ExpressCow30', 'xAdit', 'Advin'];
+var users = ['ExpressCow30', 'xAdit', 'Advin', '_fef_', 'TangyKiwi'];
 
 // Initial things when bot joins the server
 bot.on('spawn', () => {
 	console.clear();
     console.log(chalk.green("Bot has joined the server"))
+    mineflayerViewer(bot, { port: 3000, firstPerson: true })
     bot.chat('e');
 })
 
@@ -31,7 +33,7 @@ bot.on('whisper', function(username, message) {
 
 	if (users.includes(username)) {
 		if (message.includes("leave")) {
-            console.log(chalk.red(username + "said to leave"));
+            console.log(chalk.red(username + " said to leave"));
             bot.chat(username + "said to leave");
 			quitGame();
 		}
@@ -78,7 +80,7 @@ bot.on('death', () => {
 })
 
 bot.on('rain', () => {
-    bot.chat('it appears to be raining');
+    bot.chat('Lol why is it raining smh');
 })
 
-app.listen(3000) // Keeping an open port for Uptime Robot
+//app.listen(3000) // Keeping an open port for Uptime Robot
